@@ -2,10 +2,9 @@ import os
 
 from dotenv import load_dotenv
 from langchain import hub
-from langchain.agents import Tool, create_react_agent, AgentExecutor
+from langchain.agents import AgentExecutor, Tool, create_react_agent
 from langchain.prompts import PromptTemplate
 from langchain_community.tools import DuckDuckGoSearchRun
-from langchain_experimental.agents.agent_toolkits import create_python_agent
 from langchain_experimental.utilities import PythonREPL
 from langchain_openai import ChatOpenAI
 
@@ -56,17 +55,21 @@ agent = create_react_agent(llm=model, tools=tools, prompt=react_instructions)
 agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 
 # question = """
-# Minha renda é de R$10000 por mês, o total de minhas dispoesas e de R$8500 mais 1000 de aluguel.
+# Minha renda é de R$10000 por mês, o total de minhas dispoesas e de R$8500 mais 1000 de
+# aluguel.
 # Quais dica de investimenro você me dá?
 # """
 
 # question = """
-# Minha renda é de R$10000 por mês, tenho muitos cartões de crédito no total de R$12000 por mês.
+# Minha renda é de R$10000 por mês, tenho muitos cartões de crédito no total de R$12000
+# por mês.
 # Quero fazer ma renda extra para sair ds dívidas.
 # Quais dica de investimenro você me dá?
 # """
 
-question = input('Qual sua duvida:')
-output = agent_executor.invoke({'input': prompt_template.format(q=question)})
 
-print(output.get('output'))
+def search_assistent(question):
+    # question = input('Qual sua duvida:')
+    output = agent_executor.invoke({'input': prompt_template.format(q=question)})
+
+    return output.get('output')

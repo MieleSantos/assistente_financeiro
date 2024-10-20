@@ -58,7 +58,7 @@ Para rodar este projeto localmente, você precisará ter:
 Após configurar as chaves de API, você pode rodar o assistente da seguinte forma:
 
 ```bash
-python app.py
+python main.py
 ```
 
 Isso iniciará uma interface onde você pode fazer perguntas financeiras, como:
