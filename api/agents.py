@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body, status
 
-from api.assistent.agent import search_assistent
+from api.assistent.assistents import search_assistent
 from api.schemas import QueryModel
 
 router = APIRouter()
