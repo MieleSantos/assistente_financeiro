@@ -75,4 +75,4 @@ Isso iniciará uma interface onde você pode fazer perguntas financeiras, como:
 4. A resposta é processada e devolvida ao usuário.
 
 
-![image\result.jpg](image\result.jpg)
+![image/result.jpg](image/result.jpg)
