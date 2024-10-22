@@ -79,3 +79,8 @@ Isso iniciará uma interface onde você pode fazer perguntas financeiras, como:
 
 
 ### EM DESENVOLVIMENTO
+- add docker
+- add autenticação na api
+- interface grafica
+- deploy na cloud
+- tests
