@@ -7,33 +7,44 @@ from langchain.prompts import PromptTemplate
 from langchain_community.tools import DuckDuckGoSearchRun
 from langchain_experimental.utilities import PythonREPL
 from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 
 
 class FinancialAssistant:
-    def __init__(self):
+    def __init__(self, type_ai='groq'):
         """Inicializa o assistente financeiro configurando todas as ferramentas
         necessárias."""
         load_dotenv()
         self._setup_environment_variables()
-        self.model = ChatOpenAI(model='gpt-3.5-turbo')
+        self.model = self.get_model(type_ai)
         self.prompt_template = self._create_prompt_template()
         self.tools = self._initialize_tools()
         self.agent_executor = self._create_agent_executor()
 
+    def get_model(self, type_ai):  # noqa: PLR6301
+        if type_ai == 'openai':
+            return ChatOpenAI(model='gpt-3.5-turbo')
+        else:
+            return ChatGroq(model='llama3-groq-70b-8192-tool-use-preview')
+
     def _setup_environment_variables(self):  # noqa: PLR6301
         """Configura as variáveis de ambiente necessárias."""
-        api_key = os.getenv('API_KEY')
-        if not api_key:
+
+        groq_api_key = os.getenv('GROQ_API_KEY')
+        open_api_key = os.getenv('OPEN_API_KEY')
+        if not open_api_key and not groq_api_key:
             raise ValueError(
                 "A chave da API 'API_KEY' não foi encontrada nas variáveis de ambiente."
             )
-        os.environ['OPENAI_API_KEY'] = api_key
+        os.environ['GROQ_API_KEY'] = groq_api_key
+        os.environ['OPENAI_API_KEY'] = open_api_key
 
     def _create_prompt_template(self):  # noqa: PLR6301
         """Cria o template de prompt que será utilizado pelo agente."""
         prompt_text = """
         Você é um assistente financeiro pessoal que fornecerá dicas financeiras e
-        de investimentos. Responda todas as perguntas em português brasileiro.
+        de investimentos e assuntos gerais. Responda todas as perguntas em português
+        brasileiro.
         Pergunta: {q}
         """
         return PromptTemplate.from_template(prompt_text)
