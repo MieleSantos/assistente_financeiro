@@ -14,4 +14,4 @@ router = APIRouter()
 )
 async def search_agent(query: QueryModel = Body(...)) -> QueryResponse:
     if query.query:
-        return search_assistent(query.query)
+        return search_assistent(query.query, query.provedor_ai)
