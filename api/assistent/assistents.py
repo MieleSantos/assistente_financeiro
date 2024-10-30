@@ -27,17 +27,14 @@ class FinancialAssistant:
         else:
             return ChatGroq(model='llama3-groq-70b-8192-tool-use-preview')
 
-    def _setup_environment_variables(self):  # noqa: PLR6301
+    def _setup_environment_variables(self, provedor_ai):  # noqa: PLR6301
         """Configura as variáveis de ambiente necessárias."""
-
-        groq_api_key = os.getenv('GROQ_API_KEY')
-        open_api_key = os.getenv('OPEN_API_KEY')
-        if not open_api_key and not groq_api_key:
-            raise ValueError(
-                "A chave da API 'API_KEY' não foi encontrada nas variáveis de ambiente."
-            )
-        os.environ['GROQ_API_KEY'] = groq_api_key
-        os.environ['OPENAI_API_KEY'] = open_api_key
+        if provedor_ai == 'openai':
+            open_api_key = os.getenv('OPEN_API_KEY')
+            os.environ['OPENAI_API_KEY'] = open_api_key
+        else:
+            groq_api_key = os.getenv('GROQ_API_KEY')
+            os.environ['GROQ_API_KEY'] = groq_api_key
 
     def _create_prompt_template(self):  # noqa: PLR6301
         """Cria o template de prompt que será utilizado pelo agente."""
