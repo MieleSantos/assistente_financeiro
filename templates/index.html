@@ -190,11 +190,17 @@
                 <div class="message bot">
                     <div class="bubble">Olá! Como posso ajudar você hoje?</div>
                 </div>
+                {% if contexto %}
+                <!-- Exibe a resposta do bot -->
+                <div class="message user">
+                    <div class="bubble">{{ contexto.user }}</div>
+                </div>
+                {% endif %}
 
                 {% if contexto %}
                 <!-- Exibe a resposta do bot -->
                 <div class="message bot">
-                    <div class="bubble">{{ contexto.contexto }}</div>
+                    <div class="bubble">{{ contexto.response }}</div>
                 </div>
                 {% endif %}
             </div>

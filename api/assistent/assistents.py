@@ -23,10 +23,10 @@ class FinancialAssistant:
 
     def get_model(self, provedor_ai):  # noqa: PLR6301
         if provedor_ai == 'openai':
-            return ChatOpenAI(model='gpt-3.5-turbo')
+            return ChatOpenAI(model='gpt-3.5-turbo', streaming=False)
         else:
             return ChatGroq(
-                model='llama3-groq-70b-8192-tool-use-preview',
+                model='llama3-groq-70b-8192-tool-use-preview', streaming=False
             )
 
     def _setup_environment_variables(self, provedor_ai):  # noqa: PLR6301

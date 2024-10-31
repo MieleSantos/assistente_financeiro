@@ -19,13 +19,13 @@ async def read_item(request: Request):
 @router.post('/send-message/')  # , response_class=HTMLResponse)
 async def send_message(request: Request):
     data = await request.form()
-    print(data.get('message'))
-    print(data.get('provider'))
-    print(data.get('modelo'))
-    response = search_assistent(question=data.get('message'), provedor_ai='groq')
 
+    user_msg = data.get('message')
+
+    response = search_assistent(question=user_msg, provedor_ai='groq')
+    contexto = {'user': user_msg, 'response': response}
     return templates.TemplateResponse(
-        'index.html', {'request': request, 'contexto': {'contexto': response}}
+        'index.html', {'request': request, 'contexto': contexto}
     )
 
 
