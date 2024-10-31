@@ -23,9 +23,11 @@ class FinancialAssistant:
 
     def get_model(self, provedor_ai):  # noqa: PLR6301
         if provedor_ai == 'openai':
-            return ChatOpenAI(model='gpt-3.5-turbo')
+            return ChatOpenAI(model='gpt-3.5-turbo', streaming=False)
         else:
-            return ChatGroq(model='llama3-groq-70b-8192-tool-use-preview')
+            return ChatGroq(
+                model='llama3-groq-70b-8192-tool-use-preview', streaming=False
+            )
 
     def _setup_environment_variables(self, provedor_ai):  # noqa: PLR6301
         """Configura as variáveis de ambiente necessárias."""
@@ -83,7 +85,9 @@ class FinancialAssistant:
         agent = create_react_agent(
             llm=self.model, tools=self.tools, prompt=react_instructions
         )
-        return AgentExecutor(agent=agent, tools=self.tools, verbose=True)
+        return AgentExecutor(
+            agent=agent, tools=self.tools, verbose=True, handle_parsing_errors=True
+        )
 
     def search_assistant(self, question: str) -> str:
         """Recebe uma pergunta e utiliza o agente para gerar uma resposta."""
