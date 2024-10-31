@@ -187,30 +187,21 @@
 
             <!-- Caixa de Chat -->
             <div class="chat-box" id="chatBox">
-                <div class="message bot">
-                    <div class="bubble">Olá! Como posso ajudar você hoje?</div>
+                <!-- Loop para renderizar o histórico de mensagens -->
+                {% for message in chat_history %}
+                <div class="message {{ message.sender }}">
+                    <div class="bubble">{{ message.text }}</div>
                 </div>
-                {% if contexto %}
-                <!-- Exibe a resposta do bot -->
-                <div class="message user">
-                    <div class="bubble">{{ contexto.user }}</div>
-                </div>
-                {% endif %}
-
-                {% if contexto %}
-                <!-- Exibe a resposta do bot -->
-                <div class="message bot">
-                    <div class="bubble">{{ contexto.response }}</div>
-                </div>
-                {% endif %}
+                {% endfor %}
             </div>
 
             <!-- Campo de entrada do usuário -->
             <div class="user-input">
                 <input type="text" name="message" id="userInput" placeholder="Digite sua mensagem..." />
                 <button type="submit">Enviar</button>
+            </div>
+        </div>
     </form>
-
 </body>
 
 </html>

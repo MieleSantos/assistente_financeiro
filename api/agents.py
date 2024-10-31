@@ -8,6 +8,8 @@ from api.schemas import QueryModel, QueryResponse
 router = APIRouter()
 templates = Jinja2Templates(directory='templates')
 
+chat_history = []
+
 
 @router.get('/', response_class=HTMLResponse)
 async def read_item(request: Request):
@@ -16,16 +18,18 @@ async def read_item(request: Request):
     )
 
 
-@router.post('/send-message/')  # , response_class=HTMLResponse)
+@router.post('/send-message/', response_class=HTMLResponse)
 async def send_message(request: Request):
     data = await request.form()
 
     user_msg = data.get('message')
+    chat_history.append({'sender': 'user', 'text': user_msg})
 
-    response = search_assistent(question=user_msg, provedor_ai='groq')
-    contexto = {'user': user_msg, 'response': response}
+    response = search_assistent(question=user_msg, provedor_ai='openai')
+    chat_history.append({'sender': 'bot', 'text': response})
+
     return templates.TemplateResponse(
-        'index.html', {'request': request, 'contexto': contexto}
+        'index.html', {'request': request, 'chat_history': chat_history}
     )
 
 
