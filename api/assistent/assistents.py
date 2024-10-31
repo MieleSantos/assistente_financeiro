@@ -6,8 +6,8 @@ from langchain.agents import AgentExecutor, Tool, create_react_agent
 from langchain.prompts import PromptTemplate
 from langchain_community.tools import DuckDuckGoSearchRun
 from langchain_experimental.utilities import PythonREPL
-from langchain_openai import ChatOpenAI
 from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 
 
 class FinancialAssistant:
