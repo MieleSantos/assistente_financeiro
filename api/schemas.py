@@ -9,4 +9,4 @@ class QueryModel(BaseModel):
 
 
 class QueryResponse(BaseModel):
-    response: str = Field(description='Resultado da pergunta feita ao assistente')
+    response: str = Field(description='Resultado da(s) pergunta feita ao assistente')
