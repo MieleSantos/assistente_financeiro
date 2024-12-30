@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: GCP_SA_KEY
 
     steps:
       # Checkout do código
@@ -35,3 +36,4 @@ jobs:
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated
+
