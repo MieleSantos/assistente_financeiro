@@ -25,9 +25,7 @@ class FinancialAssistant:
         if provedor_ai == 'openai':
             return ChatOpenAI(model='gpt-3.5-turbo', streaming=False)
         else:
-            return ChatGroq(
-                model='llama3-groq-70b-8192-tool-use-preview', streaming=False
-            )
+            return ChatGroq(model='llama-3.3-70b-versatile', streaming=False)
 
     def _setup_environment_variables(self, provedor_ai):  # noqa: PLR6301
         """Configura as variáveis de ambiente necessárias."""
@@ -43,7 +41,7 @@ class FinancialAssistant:
         prompt_text = """
         Você é um assistente financeiro pessoal que fornecerá dicas financeiras e
         de investimentos e assuntos gerais. Responda todas as perguntas em português
-        brasileiro.
+        Responda as saudações
         Pergunta: {q}
         """
         return PromptTemplate.from_template(prompt_text)
@@ -77,7 +75,7 @@ class FinancialAssistant:
             func=search.run,
         )
 
-        return [python_repl_tool, duckduckgo_tool]
+        return [python_repl_tool]  # , duckduckgo_tool]
 
     def _create_agent_executor(self):
         """Cria o agente com as ferramentas e o modelo configurado."""
