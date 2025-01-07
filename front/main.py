@@ -9,13 +9,11 @@ from process_data import (
 
 load_dotenv()
 
-os.environ['OPENAI_API_KEY'] = os.getenv('OPEN_API_KEY')
-
 st.set_page_config(
-    page_title='Chat PyGPT',
+    page_title='Assitente Financeiro',
     page_icon='📄',
 )
-st.header('🤖 Chat com seus documentos (RAG)')
+st.header('🤖 Assitente Financeiro')
 
 with st.sidebar:
     st.header('Upload de arquivo')
