@@ -6,9 +6,8 @@ class AskBot:
     def search_ask(self, question: str):
         if not question:
             return 'Como posso ajudar?'
-        data = {'query': question, 'provedor_ai': 'groq'}
-        print(data)
 
+        data = {'query': question, 'provedor_ai': 'groq'}
         resp = CoreSearchApi.request_bot(data)
 
         return resp.json().get('response')

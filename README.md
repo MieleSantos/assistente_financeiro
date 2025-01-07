@@ -80,3 +80,6 @@ Isso iniciará uma interface onde você pode fazer perguntas financeiras, como:
 
 ### EM DESENVOLVIMENTO
 
+- Front com stremlit backend com fastapi (em dev)
+- Add docker
+- ajustes nos agentes
