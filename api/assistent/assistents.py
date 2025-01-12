@@ -75,7 +75,7 @@ class FinancialAssistant:
             func=search.run,
         )
 
-        return [python_repl_tool]  # , duckduckgo_tool]
+        return [python_repl_tool, duckduckgo_tool]
 
     def _create_agent_executor(self):
         """Cria o agente com as ferramentas e o modelo configurado."""
