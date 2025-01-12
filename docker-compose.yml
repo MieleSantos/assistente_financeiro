@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+    command: fastapi run backend/main.py --host 0.0.0.0 --port 8080 --reload
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - apiNetwork
+  
+  front:
+    build:
+      context: .
+    command: streamlit run front/main.py --server.port 8501
+    environment:
+      URL_BASE: ${URL_BASE}
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    networks:
+      - apiNetwork
+
+networks:
+  apiNetwork:
+    driver: bridge
