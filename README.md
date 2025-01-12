@@ -46,20 +46,53 @@ Para rodar este projeto localmente, você precisará ter:
    poetry install 
    ```
 
-4. Configure suas chaves de API no arquivo `.env` ou diretamente no código:
+4. Com o docker instalado:
+   ```bash
+   docker compose up --build -d
    ```
+
+5. Configure suas chaves de API no arquivo `.env` ou diretamente no código o default é usar a api do `GROQ`:
+   ```bash
    OPENAI_API_KEY=<sua_openai_api_key>
+   GROQ_API_KEY=<sua_openai_api_key>
+
+   URl_BASE=http://api:8080/
    ```
 
 ## Uso
 
-### Execução do Assistente
+### Execução do Assistente sem docker
 
 Após configurar as chaves de API, você pode rodar o assistente da seguinte forma:
 
-```bash
-python main.py
+1. Execute a api usando:
+
 ```
+fastapi run backend/main.py --host 0.0.0.0 --port 8080 --reload
+```
+
+2. Adione no .env
+```
+ URl_BASE=http://localhost:8080/
+
+```
+E execute o front usando:
+```bash
+streamlit run front/main.py --server.port 8501
+```
+
+Depois, acesse `http://localhost:8501`.
+
+
+### Execução do Assistente com docker
+
+Com o `.env` configurado e docker instalado, execute:
+
+```
+docker compose up --build -d
+```
+
+Depois, acesse `http://localhost:8501`.
 
 Isso iniciará uma interface onde você pode fazer perguntas financeiras, como:
 
@@ -69,17 +102,9 @@ Isso iniciará uma interface onde você pode fazer perguntas financeiras, como:
 
 ### Exemplo de Fluxo
 
-1. O usuário faz uma pergunta em linguagem natural.
-2. O LangChain distribui a tarefa para os agentes apropriados (Python REPL ou DuckDuckGo).
-3. O Python REPL é usado para cálculos financeiros e o DuckDuckGo para consultas web.
-4. A resposta é processada e devolvida ao usuário.
+
+![image/fluxo.jpg](image/fluxo.jpg)
+
 
 
 ![image/result.jpg](image/result.jpg)
-
-
-### EM DESENVOLVIMENTO
-
-- Front com stremlit backend com fastapi (em dev)
-- Add docker
-- ajustes nos agentes
